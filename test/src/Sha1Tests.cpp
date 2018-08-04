@@ -31,7 +31,7 @@ TEST(Sha1Tests, HashTestVectors) {
     for (const auto& testVector: testVectors) {
         EXPECT_EQ(
             testVector.output,
-            Sha1::Sha1(testVector.input)
+            Sha1::Sha1String(testVector.input)
         );
     }
 }
@@ -47,7 +47,17 @@ TEST(Sha1Tests, HashInsanelyLongInput) {
     }
     EXPECT_EQ(
         "7789f0c9ef7bfc40d93311143dfbe69e2017f592",
-        Sha1::Sha1(builder.str())
+        Sha1::Sha1String(builder.str())
     );
 }
 #endif /* INCLUDE_INSANELY_LONG_TEST_VECTOR */
+
+TEST(Sha1Tests, HashToByteVector) {
+    EXPECT_EQ(
+        (std::vector< uint8_t >{
+            0xa9, 0x99, 0x3e, 0x36, 0x47, 0x06, 0x81, 0x6a, 0xba, 0x3e,
+            0x25, 0x71, 0x78, 0x50, 0xc2, 0x6c, 0x9c, 0xd0, 0xd8, 0x9d
+        }),
+        Sha1::Sha1Bytes("abc")
+    );
+}

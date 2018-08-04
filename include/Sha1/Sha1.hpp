@@ -22,9 +22,10 @@ namespace Sha1 {
      *     This is the data for which to compute the message digest.
      *
      * @return
-     *     The SHA1 message digest of the given data is returned.
+     *     The SHA1 message digest of the given data is returned
+     *     as a string of hexadecimal digits.
      */
-    std::string Sha1(const std::vector< uint8_t >& data);
+    std::string Sha1String(const std::vector< uint8_t >& data);
 
     /**
      * This function computes the SHA-1 message digest of the given data.
@@ -33,9 +34,35 @@ namespace Sha1 {
      *     This is the data for which to compute the message digest.
      *
      * @return
-     *     The SHA1 message digest of the given data is returned.
+     *     The SHA1 message digest of the given data is returned
+     *     as a string of hexadecimal digits.
      */
-    std::string Sha1(const std::string& data);
+    std::string Sha1String(const std::string& data);
+
+
+    /**
+     * This function computes the SHA-1 message digest of the given data.
+     *
+     * @param[in] data
+     *     This is the data for which to compute the message digest.
+     *
+     * @return
+     *     The SHA1 message digest of the given data is returned
+     *     as a vector of bytes.
+     */
+    std::vector< uint8_t > Sha1Bytes(const std::vector< uint8_t >& data);
+
+    /**
+     * This function computes the SHA-1 message digest of the given data.
+     *
+     * @param[in] data
+     *     This is the data for which to compute the message digest.
+     *
+     * @return
+     *     The SHA1 message digest of the given data is returned
+     *     as a vector of bytes.
+     */
+    std::vector< uint8_t > Sha1Bytes(const std::string& data);
 
 }
 

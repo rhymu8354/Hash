@@ -40,7 +40,25 @@ namespace {
 
 namespace Sha1 {
 
-    std::string Sha1(const std::vector< uint8_t >& data) {
+    std::string Sha1String(const std::vector< uint8_t >& data) {
+        const auto digest = Sha1Bytes(data);
+        std::ostringstream digestStringBuilder;
+        digestStringBuilder << std::hex << std::setfill('0');
+        for (auto digestByte: digest) {
+            digestStringBuilder << std::setw(2) << (int)digestByte;
+        }
+        return digestStringBuilder.str();
+    }
+
+    std::string Sha1String(const std::string& data) {
+        std::vector< uint8_t > dataAsVector(data.length());
+        if (!dataAsVector.empty()) {
+            (void)memcpy(dataAsVector.data(), data.c_str(), dataAsVector.size());
+        }
+        return Sha1String(dataAsVector);
+    }
+
+    std::vector< uint8_t > Sha1Bytes(const std::vector< uint8_t >& data) {
         // This a straightforward implementation of the pseudocode
         // found in the Wikipedia page for SHA-1
         // (https://en.wikipedia.org/wiki/SHA-1).
@@ -118,22 +136,36 @@ namespace Sha1 {
             h3 += d;
             h4 += e;
         }
-        std::ostringstream digest;
-        digest << std::hex << std::setfill('0')
-            << std::setw(8) << h0
-            << std::setw(8) << h1
-            << std::setw(8) << h2
-            << std::setw(8) << h3
-            << std::setw(8) << h4;
-        return digest.str();
+        return {
+            (uint8_t)((h0 >> 24) & 0xff),
+            (uint8_t)((h0 >> 16) & 0xff),
+            (uint8_t)((h0 >> 8) & 0xff),
+            (uint8_t)(h0 & 0xff),
+            (uint8_t)((h1 >> 24) & 0xff),
+            (uint8_t)((h1 >> 16) & 0xff),
+            (uint8_t)((h1 >> 8) & 0xff),
+            (uint8_t)(h1 & 0xff),
+            (uint8_t)((h2 >> 24) & 0xff),
+            (uint8_t)((h2 >> 16) & 0xff),
+            (uint8_t)((h2 >> 8) & 0xff),
+            (uint8_t)(h2 & 0xff),
+            (uint8_t)((h3 >> 24) & 0xff),
+            (uint8_t)((h3 >> 16) & 0xff),
+            (uint8_t)((h3 >> 8) & 0xff),
+            (uint8_t)(h3 & 0xff),
+            (uint8_t)((h4 >> 24) & 0xff),
+            (uint8_t)((h4 >> 16) & 0xff),
+            (uint8_t)((h4 >> 8) & 0xff),
+            (uint8_t)(h4 & 0xff),
+        };
     }
 
-    std::string Sha1(const std::string& data) {
+    std::vector< uint8_t > Sha1Bytes(const std::string& data) {
         std::vector< uint8_t > dataAsVector(data.length());
         if (!dataAsVector.empty()) {
             (void)memcpy(dataAsVector.data(), data.c_str(), dataAsVector.size());
         }
-        return Sha1(dataAsVector);
+        return Sha1Bytes(dataAsVector);
     }
 
 }
