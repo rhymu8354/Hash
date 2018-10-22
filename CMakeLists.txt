@@ -8,11 +8,13 @@ set(This Hash)
 set(Headers
     include/Hash/Hmac.hpp
     include/Hash/Sha1.hpp
+    include/Hash/Sha2.hpp
 )
 
 set(Sources
     src/Hmac.cpp
     src/Sha1.cpp
+    src/Sha2.cpp
 )
 
 add_library(${This} STATIC ${Sources} ${Headers})
