@@ -145,8 +145,7 @@ namespace Hash {
         )
     > MakeHmacBytesToStringFunction(
         std::function< std::string(const std::vector< uint8_t >&) > hashFunction,
-        size_t blockSize,
-        size_t outputSize
+        size_t blockSize
     ) {
         const auto innerHash = [hashFunction](const std::vector< uint8_t >& input) {
             const auto data = hashFunction(input);
@@ -154,8 +153,7 @@ namespace Hash {
         };
         const auto innerHmac = MakeHmacBytesToBytesFunction(
             innerHash,
-            blockSize,
-            outputSize
+            blockSize
         );
         return [innerHmac](
             const std::vector< uint8_t >& key,
@@ -173,8 +171,7 @@ namespace Hash {
         )
     > MakeHmacStringToStringFunction(
         std::function< std::string(const std::string&) > hashFunction,
-        size_t blockSize,
-        size_t outputSize
+        size_t blockSize
     ) {
         const auto innerHash = [hashFunction](const std::vector< uint8_t >& input) {
             const auto inputAsString = BytesToRawString(input);
@@ -183,8 +180,7 @@ namespace Hash {
         };
         const auto innerHmac = MakeHmacBytesToBytesFunction(
             innerHash,
-            blockSize,
-            outputSize
+            blockSize
         );
         return [innerHmac](
             const std::string& key,
@@ -204,10 +200,9 @@ namespace Hash {
         )
     > MakeHmacBytesToBytesFunction(
         std::function< std::vector< uint8_t >(const std::vector< uint8_t >&) > hashFunction,
-        size_t blockSize,
-        size_t outputSize
+        size_t blockSize
     ) {
-        return [hashFunction, blockSize, outputSize](
+        return [hashFunction, blockSize](
             const std::vector< uint8_t >& key,
             const std::vector< uint8_t >& message
         ) {
@@ -235,8 +230,7 @@ namespace Hash {
         )
     > MakeHmacStringToBytesFunction(
         std::function< std::vector< uint8_t >(const std::string&) > hashFunction,
-        size_t blockSize,
-        size_t outputSize
+        size_t blockSize
     ) {
         const auto innerHash = [hashFunction](const std::vector< uint8_t >& input) {
             const auto inputAsString = BytesToRawString(input);
@@ -245,8 +239,7 @@ namespace Hash {
         };
         const auto innerHmac = MakeHmacBytesToBytesFunction(
             innerHash,
-            blockSize,
-            outputSize
+            blockSize
         );
         return [innerHmac](
             const std::string& key,

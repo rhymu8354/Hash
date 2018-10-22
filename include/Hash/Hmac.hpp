@@ -30,9 +30,6 @@ namespace Hash {
      * @param[in] blockSize
      *     This is the block size of the given hash function, in bytes.
      *
-     * @param[in] outputSize
-     *     This is the output size of the given hash function, in bytes.
-     *
      * @return
      *     A function which computes HMAC codes using the given hash function,
      *     taking byte vectors as input and producing string output is
@@ -45,8 +42,7 @@ namespace Hash {
         )
     > MakeHmacBytesToStringFunction(
         std::function< std::string(const std::vector< uint8_t >&) > hashFunction,
-        size_t blockSize,
-        size_t outputSize
+        size_t blockSize
     );
 
     /**
@@ -61,9 +57,6 @@ namespace Hash {
      * @param[in] blockSize
      *     This is the block size of the given hash function, in bytes.
      *
-     * @param[in] outputSize
-     *     This is the output size of the given hash function, in bytes.
-     *
      * @return
      *     A function which computes HMAC codes using the given hash function,
      *     taking strings as input and producing string output is
@@ -76,8 +69,7 @@ namespace Hash {
         )
     > MakeHmacStringToStringFunction(
         std::function< std::string(const std::string&) > hashFunction,
-        size_t blockSize,
-        size_t outputSize
+        size_t blockSize
     );
 
     /**
@@ -92,9 +84,6 @@ namespace Hash {
      * @param[in] blockSize
      *     This is the block size of the given hash function, in bytes.
      *
-     * @param[in] outputSize
-     *     This is the output size of the given hash function, in bytes.
-     *
      * @return
      *     A function which computes HMAC codes using the given hash function,
      *     taking byte vectors as input and producing byte vector output is
@@ -107,8 +96,7 @@ namespace Hash {
         )
     > MakeHmacBytesToBytesFunction(
         std::function< std::vector< uint8_t >(const std::vector< uint8_t >&) > hashFunction,
-        size_t blockSize,
-        size_t outputSize
+        size_t blockSize
     );
 
     /**
@@ -123,9 +111,6 @@ namespace Hash {
      * @param[in] blockSize
      *     This is the block size of the given hash function, in bytes.
      *
-     * @param[in] outputSize
-     *     This is the output size of the given hash function, in bytes.
-     *
      * @return
      *     A function which computes HMAC codes using the given hash function,
      *     taking strings as input and producing byte vector output is
@@ -138,8 +123,7 @@ namespace Hash {
         )
     > MakeHmacStringToBytesFunction(
         std::function< std::vector< uint8_t >(const std::string&) > hashFunction,
-        size_t blockSize,
-        size_t outputSize
+        size_t blockSize
     );
 
 }
