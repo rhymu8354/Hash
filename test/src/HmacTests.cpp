@@ -8,7 +8,7 @@
 
 #include <gtest/gtest.h>
 #include <Hash/Sha1.hpp>
-#include <Hash/Hash.hpp>
+#include <Hash/Templates.hpp>
 #include <Hash/Hmac.hpp>
 #include <stddef.h>
 #include <stdint.h>

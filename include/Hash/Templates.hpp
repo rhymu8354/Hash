@@ -1,8 +1,8 @@
-#ifndef HASH_HASH_HPP
-#define HASH_HASH_HPP
+#ifndef HASH_TEMPLATES_HPP
+#define HASH_TEMPLATES_HPP
 
 /**
- * @file Hash.hpp
+ * @file Templates.hpp
  *
  * This module declares function templates that can be used with hash
  * functions to adapt them to be more flexible in input/output types.
@@ -10,6 +10,8 @@
  * © 2018 by Richard Walters
  */
 
+#include <iomanip>
+#include <sstream>
 #include <stdint.h>
 #include <string>
 #include <vector>
@@ -89,4 +91,4 @@ namespace Hash {
 
 }
 
-#endif /* HASH_HASH_HPP */
+#endif /* HASH_TEMPLATES_HPP */

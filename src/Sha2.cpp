@@ -7,9 +7,7 @@
  * © 2018 by Richard Walters
  */
 
-#include <iomanip>
 #include <Hash/Sha2.hpp>
-#include <sstream>
 #include <string.h>
 #include <stdint.h>
 #include <vector>

@@ -7,7 +7,7 @@
  */
 
 #include <gtest/gtest.h>
-#include <Hash/Hash.hpp>
+#include <Hash/Templates.hpp>
 #include <Hash/Sha2.hpp>
 #include <stddef.h>
 #include <stdint.h>
