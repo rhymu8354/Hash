@@ -8,6 +8,7 @@ set(This HashTests)
 option(SHA1_TESTS_INSANELY_LONG_TEST_VECTOR "Include insanely long test vector (takes 20+ seconds unoptimized)" OFF)
 
 set(Sources
+    src/HmacTests.cpp
     src/Sha1Tests.cpp
 )
 

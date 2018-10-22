@@ -6,10 +6,12 @@ cmake_minimum_required(VERSION 3.8)
 set(This Hash)
 
 set(Headers
+    include/Hash/Hmac.hpp
     include/Hash/Sha1.hpp
 )
 
 set(Sources
+    src/Hmac.cpp
     src/Sha1.cpp
 )
 
