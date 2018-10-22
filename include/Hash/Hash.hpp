@@ -4,7 +4,8 @@
 /**
  * @file Hash.hpp
  *
- * This module declares the Hash::Hash class template.
+ * This module declares function templates that can be used with hash
+ * functions to adapt them to be more flexible in input/output types.
  *
  * © 2018 by Richard Walters
  */
@@ -16,16 +17,27 @@
 
 namespace Hash {
 
-    typedef std::vector< uint8_t >(*HashFunction)(const std::vector< uint8_t >&);
+    /**
+     * This is the required signature of hash functions to fit into the
+     * function templates found in this module.
+     *
+     * @param[in] message
+     *     This is the message for which to compute a digest.
+     *
+     * @return
+     *     The message digest is returned.
+     */
+    typedef std::vector< uint8_t >(*HashFunction)(const std::vector< uint8_t >& message);
 
     /**
-     * This function computes the message digest of the given data.
+     * This function template is used to compute the message digest of the
+     * given data and return it as a string of hex digits.
      *
      * @param[in] data
      *     This is the data for which to compute the message digest.
      *
      * @return
-     *     The SHA1 message digest of the given data is returned
+     *     The message digest of the given data is returned
      *     as a string of hexadecimal digits.
      */
     template< HashFunction hash > std::string BytesToString(const std::vector< uint8_t >& data) {
@@ -39,7 +51,8 @@ namespace Hash {
     }
 
     /**
-     * This function computes the message digest of the given data.
+     * This function template is used to compute the message digest of the
+     * given string data and return it as a string of hex digits.
      *
      * @param[in] data
      *     This is the data for which to compute the message digest.
@@ -57,7 +70,8 @@ namespace Hash {
     }
 
     /**
-     * This function computes the message digest of the given data.
+     * This function template is used to compute the message digest of the
+     * given string data and return it as a byte vector.
      *
      * @param[in] data
      *     This is the data for which to compute the message digest.
