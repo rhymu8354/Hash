@@ -40,25 +40,7 @@ namespace {
 
 namespace Hash {
 
-    std::string Sha256BytesToString(const std::vector< uint8_t >& data) {
-        const auto digest = Sha256BytesToBytes(data);
-        std::ostringstream digestStringBuilder;
-        digestStringBuilder << std::hex << std::setfill('0');
-        for (auto digestByte: digest) {
-            digestStringBuilder << std::setw(2) << (int)digestByte;
-        }
-        return digestStringBuilder.str();
-    }
-
-    std::string Sha256StringToString(const std::string& data) {
-        std::vector< uint8_t > dataAsVector(data.length());
-        if (!dataAsVector.empty()) {
-            (void)memcpy(dataAsVector.data(), data.c_str(), dataAsVector.size());
-        }
-        return Sha256BytesToString(dataAsVector);
-    }
-
-    std::vector< uint8_t > Sha256BytesToBytes(const std::vector< uint8_t >& data) {
+    std::vector< uint8_t > Sha256(const std::vector< uint8_t >& data) {
         // This a straightforward implementation of the pseudocode
         // found in the Wikipedia page for SHA-2
         // (https://en.wikipedia.org/wiki/SHA-2).
@@ -212,14 +194,6 @@ namespace Hash {
             (uint8_t)((h7 >> 8) & 0xff),
             (uint8_t)(h7 & 0xff),
         };
-    }
-
-    std::vector< uint8_t > Sha256StringToBytes(const std::string& data) {
-        std::vector< uint8_t > dataAsVector(data.length());
-        if (!dataAsVector.empty()) {
-            (void)memcpy(dataAsVector.data(), data.c_str(), dataAsVector.size());
-        }
-        return Sha256BytesToBytes(dataAsVector);
     }
 
 }

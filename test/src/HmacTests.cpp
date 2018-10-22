@@ -8,6 +8,7 @@
 
 #include <gtest/gtest.h>
 #include <Hash/Sha1.hpp>
+#include <Hash/Hash.hpp>
 #include <Hash/Hmac.hpp>
 #include <stddef.h>
 #include <stdint.h>
@@ -28,7 +29,7 @@ TEST(HmacTests, HmacCodeTestVectors) {
         {"key", "The quick brown fox jumps over the lazy dog", "de7c9b85b8b78aa6bc8a7a36f70a90701c9db4d9"},
         {"", "", "fbdb1d1b18aa6c08324b7d64b71fb76370690e1d"},
     };
-    const auto hmac = Hash::MakeHmacStringToStringFunction(Hash::Sha1StringToString, 64, 20);
+    const auto hmac = Hash::MakeHmacStringToStringFunction(Hash::StringToString< Hash::Sha1 >, 64, 20);
     for (const auto& testVector: testVectors) {
         EXPECT_EQ(
             testVector.output,
@@ -38,7 +39,7 @@ TEST(HmacTests, HmacCodeTestVectors) {
 }
 
 TEST(HmacTests, HmacCodeByteVector) {
-    const auto hmac = Hash::MakeHmacStringToBytesFunction(Hash::Sha1StringToBytes, 64, 20);
+    const auto hmac = Hash::MakeHmacStringToBytesFunction(Hash::StringToBytes< Hash::Sha1 >, 64, 20);
     EXPECT_EQ(
         (std::vector< uint8_t >{
             0xfb, 0xdb, 0x1d, 0x1b, 0x18, 0xaa, 0x6c, 0x08,

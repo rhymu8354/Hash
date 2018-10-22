@@ -16,28 +16,9 @@
 namespace Hash {
 
     /**
-     * This function computes the SHA-1 message digest of the given data.
-     *
-     * @param[in] data
-     *     This is the data for which to compute the message digest.
-     *
-     * @return
-     *     The SHA1 message digest of the given data is returned
-     *     as a string of hexadecimal digits.
+     * This is the block size, in bytes, used by the SHA-1 hash function.
      */
-    std::string Sha1BytesToString(const std::vector< uint8_t >& data);
-
-    /**
-     * This function computes the SHA-1 message digest of the given data.
-     *
-     * @param[in] data
-     *     This is the data for which to compute the message digest.
-     *
-     * @return
-     *     The SHA1 message digest of the given data is returned
-     *     as a string of hexadecimal digits.
-     */
-    std::string Sha1StringToString(const std::string& data);
+    constexpr size_t SHA1_BLOCK_SIZE = 64;
 
     /**
      * This function computes the SHA-1 message digest of the given data.
@@ -49,19 +30,7 @@ namespace Hash {
      *     The SHA1 message digest of the given data is returned
      *     as a vector of bytes.
      */
-    std::vector< uint8_t > Sha1BytesToBytes(const std::vector< uint8_t >& data);
-
-    /**
-     * This function computes the SHA-1 message digest of the given data.
-     *
-     * @param[in] data
-     *     This is the data for which to compute the message digest.
-     *
-     * @return
-     *     The SHA1 message digest of the given data is returned
-     *     as a vector of bytes.
-     */
-    std::vector< uint8_t > Sha1StringToBytes(const std::string& data);
+    std::vector< uint8_t > Sha1(const std::vector< uint8_t >& data);
 
 }
 

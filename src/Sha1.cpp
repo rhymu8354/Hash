@@ -40,25 +40,7 @@ namespace {
 
 namespace Hash {
 
-    std::string Sha1BytesToString(const std::vector< uint8_t >& data) {
-        const auto digest = Sha1BytesToBytes(data);
-        std::ostringstream digestStringBuilder;
-        digestStringBuilder << std::hex << std::setfill('0');
-        for (auto digestByte: digest) {
-            digestStringBuilder << std::setw(2) << (int)digestByte;
-        }
-        return digestStringBuilder.str();
-    }
-
-    std::string Sha1StringToString(const std::string& data) {
-        std::vector< uint8_t > dataAsVector(data.length());
-        if (!dataAsVector.empty()) {
-            (void)memcpy(dataAsVector.data(), data.c_str(), dataAsVector.size());
-        }
-        return Sha1BytesToString(dataAsVector);
-    }
-
-    std::vector< uint8_t > Sha1BytesToBytes(const std::vector< uint8_t >& data) {
+    std::vector< uint8_t > Sha1(const std::vector< uint8_t >& data) {
         // This a straightforward implementation of the pseudocode
         // found in the Wikipedia page for SHA-1
         // (https://en.wikipedia.org/wiki/SHA-1).
@@ -158,14 +140,6 @@ namespace Hash {
             (uint8_t)((h4 >> 8) & 0xff),
             (uint8_t)(h4 & 0xff),
         };
-    }
-
-    std::vector< uint8_t > Sha1StringToBytes(const std::string& data) {
-        std::vector< uint8_t > dataAsVector(data.length());
-        if (!dataAsVector.empty()) {
-            (void)memcpy(dataAsVector.data(), data.c_str(), dataAsVector.size());
-        }
-        return Sha1BytesToBytes(dataAsVector);
     }
 
 }

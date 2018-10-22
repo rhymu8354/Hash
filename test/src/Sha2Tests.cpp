@@ -7,6 +7,7 @@
  */
 
 #include <gtest/gtest.h>
+#include <Hash/Hash.hpp>
 #include <Hash/Sha2.hpp>
 #include <stddef.h>
 #include <stdint.h>
@@ -29,7 +30,7 @@ TEST(Sha2Tests, Sha256TestVectors) {
     for (const auto& testVector: testVectors) {
         EXPECT_EQ(
             testVector.output,
-            Hash::Sha256StringToString(testVector.input)
+            Hash::StringToString< Hash::Sha256 >(testVector.input)
         );
     }
 }
@@ -42,6 +43,6 @@ TEST(Sha2Tests, Sha256HashToByteVector) {
             0x27, 0xae, 0x41, 0xe4, 0x64, 0x9b, 0x93, 0x4c,
             0xa4, 0x95, 0x99, 0x1b, 0x78, 0x52, 0xb8, 0x55,
         }),
-        Hash::Sha256StringToBytes("")
+        Hash::StringToBytes< Hash::Sha256 >("")
     );
 }

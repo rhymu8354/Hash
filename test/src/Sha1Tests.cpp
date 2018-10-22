@@ -7,6 +7,7 @@
  */
 
 #include <gtest/gtest.h>
+#include <Hash/Hash.hpp>
 #include <Hash/Sha1.hpp>
 #include <stddef.h>
 #include <stdint.h>
@@ -31,7 +32,7 @@ TEST(Sha1Tests, HashTestVectors) {
     for (const auto& testVector: testVectors) {
         EXPECT_EQ(
             testVector.output,
-            Hash::Sha1StringToString(testVector.input)
+            Hash::StringToString< Hash::Sha1 >(testVector.input)
         );
     }
 }
@@ -58,6 +59,6 @@ TEST(Sha1Tests, HashToByteVector) {
             0xa9, 0x99, 0x3e, 0x36, 0x47, 0x06, 0x81, 0x6a, 0xba, 0x3e,
             0x25, 0x71, 0x78, 0x50, 0xc2, 0x6c, 0x9c, 0xd0, 0xd8, 0x9d
         }),
-        Hash::Sha1StringToBytes("abc")
+        Hash::StringToBytes< Hash::Sha1 >("abc")
     );
 }
