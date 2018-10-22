@@ -9,8 +9,8 @@
  * © 2018 by Richard Walters
  */
 
+#include <stddef.h>
 #include <stdint.h>
-#include <string>
 #include <vector>
 
 namespace Hash {
