@@ -10,7 +10,6 @@
  * © 2018 by Richard Walters
  */
 
-#include <functional>
 #include <stdint.h>
 #include <string>
 #include <vector>
