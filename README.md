@@ -1,10 +1,13 @@
-# Sha1
+# Hash
 
-This is a library which implements the Secure Hash Algorithm 1 (SHA-1) described in [RFC 3174](https://tools.ietf.org/html/rfc3174).
+This is a library which implements various hash functions, including:
+
+* Secure Hash Algorithm 1 (SHA-1) described in [RFC 3174](https://tools.ietf.org/html/rfc3174).
+* Secure Hash Algorithm 2 (SHA-2), which is a set of related hash functions, described in [RFC 4634](https://tools.ietf.org/html/rfc4634).
 
 ## Usage
 
-The `Sha1` functions are used to compute the SHA-1 hash of either a string or vector of data.
+The `Hash` functions are used to compute digests of messages.  Each hash function differs in the actual algorithm, digest size, block size, and other characteristics.  The hash functions can be used to compute the digest of either a string or vector of data.
 
 ## Supported platforms / recommended toolchains
 

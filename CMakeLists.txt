@@ -1,12 +1,12 @@
-# CMakeLists.txt for Sha1
+# CMakeLists.txt for Hash
 #
 # © 2018 by Richard Walters
 
 cmake_minimum_required(VERSION 3.8)
-set(This Sha1)
+set(This Hash)
 
 set(Headers
-    include/Sha1/Sha1.hpp
+    include/Hash/Sha1.hpp
 )
 
 set(Sources

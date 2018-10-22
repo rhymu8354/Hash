@@ -8,7 +8,7 @@
  */
 
 #include <iomanip>
-#include <Sha1/Sha1.hpp>
+#include <Hash/Sha1.hpp>
 #include <sstream>
 #include <string.h>
 #include <stdint.h>

@@ -1,9 +1,9 @@
-# CMakeLists.txt for Sha1Tests
+# CMakeLists.txt for HashTests
 #
 # © 2018 by Richard Walters
 
 cmake_minimum_required(VERSION 3.8)
-set(This Sha1Tests)
+set(This HashTests)
 
 option(SHA1_TESTS_INSANELY_LONG_TEST_VECTOR "Include insanely long test vector (takes 20+ seconds unoptimized)" OFF)
 
@@ -24,7 +24,7 @@ target_include_directories(${This} PRIVATE ..)
 
 target_link_libraries(${This} PUBLIC
     gtest_main
-    Sha1
+    Hash
 )
 
 add_test(

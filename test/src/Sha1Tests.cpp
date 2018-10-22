@@ -7,7 +7,7 @@
  */
 
 #include <gtest/gtest.h>
-#include <Sha1/Sha1.hpp>
+#include <Hash/Sha1.hpp>
 #include <stddef.h>
 #include <stdint.h>
 #include <string>
