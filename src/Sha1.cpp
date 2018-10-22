@@ -2,7 +2,7 @@
  * @file Sha1.cpp
  *
  * This module contains the implementation of the
- * Hash::Sha1 functions.
+ * Hash::Sha1 function.
  *
  * © 2016-2018 by Richard Walters
  */

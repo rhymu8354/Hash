@@ -4,7 +4,7 @@
 /**
  * @file Sha2.hpp
  *
- * This module declares the Hash::Sha2 functions.
+ * This module declares the SHA-2 hash functions and block sizes.
  *
  * © 2018 by Richard Walters
  */

@@ -4,7 +4,7 @@
 /**
  * @file Sha1.hpp
  *
- * This module declares the Hash::Sha1 functions.
+ * This module declares the SHA-1 hash function and block size.
  *
  * © 2016-2018 by Richard Walters
  */

@@ -2,7 +2,7 @@
  * @file Sha2.cpp
  *
  * This module contains the implementation of the
- * Hash::Sha2 functions.
+ * Hash::Sha2 function.
  *
  * © 2018 by Richard Walters
  */
