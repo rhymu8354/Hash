@@ -24,6 +24,7 @@ TEST(HmacTests, HmacCodeTestVectors) {
         std::string output;
     };
     const std::vector< TestVector > testVectors{
+        {"lksadfjlkasfldjksajdflkasdjlfkasdjlfkasdjlfksajlkdfjalksdfjlksadfjlksad;fjlksadjflkasdjlfk", "The quick brown fox jumps over the lazy dog", "6a0fbb14e3dbe792d585935f6ff82e51ce70e1e7"},
         {"key", "The quick brown fox jumps over the lazy dog", "de7c9b85b8b78aa6bc8a7a36f70a90701c9db4d9"},
         {"", "", "fbdb1d1b18aa6c08324b7d64b71fb76370690e1d"},
     };

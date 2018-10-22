@@ -211,13 +211,11 @@ namespace Hash {
             const std::vector< uint8_t >& key,
             const std::vector< uint8_t >& message
         ) {
-            std::vector< uint8_t > normalizedKey;
-            if (key.size() > blockSize) {
-                normalizedKey = hashFunction(key);
-            } else {
-                normalizedKey = key;
-                normalizedKey.resize(blockSize);
+            std::vector< uint8_t > normalizedKey(key);
+            if (normalizedKey.size() > blockSize) {
+                normalizedKey = hashFunction(normalizedKey);
             }
+            normalizedKey.resize(blockSize);
             std::vector< uint8_t > opad(normalizedKey);
             for (auto& b: opad) {
                 b ^= 0x5C;
