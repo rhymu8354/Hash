@@ -39,7 +39,6 @@ namespace Hash {
      */
     std::string Sha1StringToString(const std::string& data);
 
-
     /**
      * This function computes the SHA-1 message digest of the given data.
      *
