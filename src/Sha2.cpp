@@ -447,7 +447,18 @@ namespace {
         return digest;
     }
 
-    std::vector< uint64_t > Sha256IV(const std::string& data) {
+    /**
+     * This function evaluates a modified SHA-512 on the given string, to be
+     * used to generate the initial hash values for SHA-512/t hash functions.
+     *
+     * @param[in] data
+     *     This is the string for which to evaluate the modified SHA-512.
+     *
+     * @return
+     *     The initial hash values for the SHA-512/t hash function matching
+     *     the given data is returned.
+     */
+    std::vector< uint64_t > Sha512IV(const std::string& data) {
         const auto digest = Sha386or512or512t(
             std::vector< uint8_t >{
                 data.begin(),
@@ -514,7 +525,7 @@ namespace Hash {
         return Sha386or512or512t(
             data,
             28,
-            Sha256IV("SHA-512/224")
+            Sha512IV("SHA-512/224")
         );
     }
 
@@ -522,7 +533,7 @@ namespace Hash {
         return Sha386or512or512t(
             data,
             32,
-            Sha256IV("SHA-512/256")
+            Sha512IV("SHA-512/256")
         );
     }
 
