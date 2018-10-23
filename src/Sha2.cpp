@@ -34,24 +34,38 @@ namespace {
         );
     }
 
-}
-
-namespace Hash {
-
-    std::vector< uint8_t > Sha256(const std::vector< uint8_t >& data) {
+    /**
+     * This function computes either the SHA-224 or the SHA-256 message digest
+     * of the given data.
+     *
+     * @param[in] data
+     *     This is the data for which to compute the message digest.
+     *
+     * @param[in] truncate
+     *     If true, compute the SHA-224 message digest.  Otherwise, compute
+     *     the SHA-256 message digest.
+     *
+     * @return
+     *     The SHA-224 or SHA-256 message digest of the given data is returned
+     *     as a vector of bytes.
+     */
+    std::vector< uint8_t > Sha224or256(
+        const std::vector< uint8_t >& data,
+        bool truncate
+    ) {
         // This a straightforward implementation of the pseudocode
         // found in the Wikipedia page for SHA-2
         // (https://en.wikipedia.org/wiki/SHA-2).
         uint8_t chunk[64];
         uint32_t w[64];
-        uint32_t h0 = 0x6a09e667;
-        uint32_t h1 = 0xbb67ae85;
-        uint32_t h2 = 0x3c6ef372;
-        uint32_t h3 = 0xa54ff53a;
-        uint32_t h4 = 0x510e527f;
-        uint32_t h5 = 0x9b05688c;
-        uint32_t h6 = 0x1f83d9ab;
-        uint32_t h7 = 0x5be0cd19;
+        uint32_t h0 = truncate ? 0xc1059ed8 : 0x6a09e667;
+        uint32_t h1 = truncate ? 0x367cd507 : 0xbb67ae85;
+        uint32_t h2 = truncate ? 0x3070dd17 : 0x3c6ef372;
+        uint32_t h3 = truncate ? 0xf70e5939 : 0xa54ff53a;
+        uint32_t h4 = truncate ? 0xffc00b31 : 0x510e527f;
+        uint32_t h5 = truncate ? 0x68581511 : 0x9b05688c;
+        uint32_t h6 = truncate ? 0x64f98fa7 : 0x1f83d9ab;
+        uint32_t h7 = truncate ? 0xbefa4fa4 : 0x5be0cd19;
         static const uint32_t k[64] = {
             0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
             0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
@@ -158,7 +172,7 @@ namespace Hash {
             h6 += g;
             h7 += h;
         }
-        return {
+        std::vector< uint8_t > digest{
             (uint8_t)((h0 >> 24) & 0xff),
             (uint8_t)((h0 >> 16) & 0xff),
             (uint8_t)((h0 >> 8) & 0xff),
@@ -186,12 +200,27 @@ namespace Hash {
             (uint8_t)((h6 >> 24) & 0xff),
             (uint8_t)((h6 >> 16) & 0xff),
             (uint8_t)((h6 >> 8) & 0xff),
-            (uint8_t)(h6 & 0xff),
-            (uint8_t)((h7 >> 24) & 0xff),
-            (uint8_t)((h7 >> 16) & 0xff),
-            (uint8_t)((h7 >> 8) & 0xff),
-            (uint8_t)(h7 & 0xff),
+            (uint8_t)(h6 & 0xff)
         };
+        if (!truncate) {
+            digest.push_back((uint8_t)((h7 >> 24) & 0xff));
+            digest.push_back((uint8_t)((h7 >> 16) & 0xff));
+            digest.push_back((uint8_t)((h7 >> 8) & 0xff));
+            digest.push_back((uint8_t)(h7 & 0xff));
+        }
+        return digest;
+    }
+
+}
+
+namespace Hash {
+
+    std::vector< uint8_t > Sha224(const std::vector< uint8_t >& data) {
+        return Sha224or256(data, true);
+    }
+
+    std::vector< uint8_t > Sha256(const std::vector< uint8_t >& data) {
+        return Sha224or256(data, false);
     }
 
 }

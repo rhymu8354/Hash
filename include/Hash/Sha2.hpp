@@ -16,12 +16,29 @@
 namespace Hash {
 
     /**
+     * This is the block size, in bytes, used by the SHA-224 hash function.
+     */
+    constexpr size_t SHA224_BLOCK_SIZE = 64;
+
+    /**
      * This is the block size, in bytes, used by the SHA-256 hash function.
      */
     constexpr size_t SHA256_BLOCK_SIZE = 64;
 
     /**
-     * This function computes the SHA-1 message digest of the given data.
+     * This function computes the SHA-224 message digest of the given data.
+     *
+     * @param[in] data
+     *     This is the data for which to compute the message digest.
+     *
+     * @return
+     *     The SHA-224 message digest of the given data is returned
+     *     as a vector of bytes.
+     */
+    std::vector< uint8_t > Sha224(const std::vector< uint8_t >& data);
+
+    /**
+     * This function computes the SHA-256 message digest of the given data.
      *
      * @param[in] data
      *     This is the data for which to compute the message digest.

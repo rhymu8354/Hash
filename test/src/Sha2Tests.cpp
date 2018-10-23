@@ -15,6 +15,26 @@
 #include <sstream>
 #include <vector>
 
+TEST(Sha2Tests, Sha224TestVectors) {
+    // These test vectors were obtained by calculating SHA-224 digests using
+    // the great and powerful openssl tool.
+    struct TestVector {
+        std::string input;
+        std::string output;
+    };
+    const std::vector< TestVector > testVectors{
+        {"", "d14a028c2a3a2bc9476102bb288234c415a2b01f828ea62ac5b3e42f"},
+        {"The quick brown fox jumps over the lazy dog", "730e109bd7a8a32b1cb9d9a09aa2325d2430587ddbc0c38bad911525"},
+        {std::string(1000000, 'a'), "20794655980c91d8bbb4c1ea97618a4bf03f42581948b2ee4ee7ad67"},
+    };
+    for (const auto& testVector: testVectors) {
+        EXPECT_EQ(
+            testVector.output,
+            Hash::StringToString< Hash::Sha224 >(testVector.input)
+        );
+    }
+}
+
 TEST(Sha2Tests, Sha256TestVectors) {
     // These test vectors were obtained by calculating SHA-256 digests using
     // the great and powerful openssl tool.
