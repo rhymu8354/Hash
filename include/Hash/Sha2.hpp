@@ -55,6 +55,42 @@ namespace Hash {
     std::vector< uint8_t > Sha256(const std::vector< uint8_t >& data);
 
     /**
+     * This function computes the SHA-384 message digest of the given data.
+     *
+     * @param[in] data
+     *     This is the data for which to compute the message digest.
+     *
+     * @return
+     *     The SHA-384 message digest of the given data is returned
+     *     as a vector of bytes.
+     */
+    std::vector< uint8_t > Sha384(const std::vector< uint8_t >& data);
+
+    /**
+     * This function computes the SHA-512/224 message digest of the given data.
+     *
+     * @param[in] data
+     *     This is the data for which to compute the message digest.
+     *
+     * @return
+     *     The SHA-512/224 message digest of the given data is returned
+     *     as a vector of bytes.
+     */
+    std::vector< uint8_t > Sha512t224(const std::vector< uint8_t >& data);
+
+    /**
+     * This function computes the SHA-512/256 message digest of the given data.
+     *
+     * @param[in] data
+     *     This is the data for which to compute the message digest.
+     *
+     * @return
+     *     The SHA-512/256 message digest of the given data is returned
+     *     as a vector of bytes.
+     */
+    std::vector< uint8_t > Sha512t256(const std::vector< uint8_t >& data);
+
+    /**
      * This function computes the SHA-512 message digest of the given data.
      *
      * @param[in] data

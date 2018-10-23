@@ -231,32 +231,42 @@ namespace {
         return digest;
     }
 
-}
-
-namespace Hash {
-
-    std::vector< uint8_t > Sha224(const std::vector< uint8_t >& data) {
-        return Sha224or256(data, true);
-    }
-
-    std::vector< uint8_t > Sha256(const std::vector< uint8_t >& data) {
-        return Sha224or256(data, false);
-    }
-
-    std::vector< uint8_t > Sha512(const std::vector< uint8_t >& data) {
+    /**
+     * This function computes either the SHA-384, SHA-512, or SHA-512/n message
+     * digest of the given data, depending on the given output size and initial
+     * hash values.
+     *
+     * @param[in] data
+     *     This is the data for which to compute the message digest.
+     *
+     * @param[in] outputSize
+     *     This is the number of bytes to output for the digest.
+     *
+     * @param[in] initialHashValues
+     *     These are the initial values to set for the digest.
+     *
+     * @return
+     *     The SHA-384 or SHA-512 message digest of the given data is returned
+     *     as a vector of bytes.
+     */
+    std::vector< uint8_t > Sha386or512or512t(
+        const std::vector< uint8_t >& data,
+        size_t outputSize,
+        const std::vector< uint64_t >& initialHashValues
+    ) {
         // This a straightforward implementation of the pseudocode
         // found in the Wikipedia page for SHA-2
         // (https://en.wikipedia.org/wiki/SHA-2).
         uint8_t chunk[128];
         uint64_t w[80];
-        uint64_t h0 = 0x6a09e667f3bcc908;
-        uint64_t h1 = 0xbb67ae8584caa73b;
-        uint64_t h2 = 0x3c6ef372fe94f82b;
-        uint64_t h3 = 0xa54ff53a5f1d36f1;
-        uint64_t h4 = 0x510e527fade682d1;
-        uint64_t h5 = 0x9b05688c2b3e6c1f;
-        uint64_t h6 = 0x1f83d9abfb41bd6b;
-        uint64_t h7 = 0x5be0cd19137e2179;
+        uint64_t h0 = initialHashValues[0];
+        uint64_t h1 = initialHashValues[1];
+        uint64_t h2 = initialHashValues[2];
+        uint64_t h3 = initialHashValues[3];
+        uint64_t h4 = initialHashValues[4];
+        uint64_t h5 = initialHashValues[5];
+        uint64_t h6 = initialHashValues[6];
+        uint64_t h7 = initialHashValues[7];
         static const uint64_t k[80] = {
             0x428a2f98d728ae22, 0x7137449123ef65cd, 0xb5c0fbcfec4d3b2f, 0xe9b5dba58189dbbc, 0x3956c25bf348b538,
             0x59f111f1b605d019, 0x923f82a4af194f9b, 0xab1c5ed5da6d8118, 0xd807aa98a3030242, 0x12835b0145706fbe,
@@ -367,7 +377,7 @@ namespace Hash {
             h6 += g;
             h7 += h;
         }
-        return {
+        std::vector< uint8_t > digest{
             (uint8_t)((h0 >> 56) & 0xff),
             (uint8_t)((h0 >> 48) & 0xff),
             (uint8_t)((h0 >> 40) & 0xff),
@@ -433,6 +443,104 @@ namespace Hash {
             (uint8_t)((h7 >> 8) & 0xff),
             (uint8_t)(h7 & 0xff)
         };
+        digest.resize(outputSize);
+        return digest;
+    }
+
+    std::vector< uint64_t > Sha256IV(const std::string& data) {
+        const auto digest = Sha386or512or512t(
+            std::vector< uint8_t >{
+                data.begin(),
+                data.end()
+            },
+            64,
+            {
+                0x6a09e667f3bcc908 ^ 0xa5a5a5a5a5a5a5a5,
+                0xbb67ae8584caa73b ^ 0xa5a5a5a5a5a5a5a5,
+                0x3c6ef372fe94f82b ^ 0xa5a5a5a5a5a5a5a5,
+                0xa54ff53a5f1d36f1 ^ 0xa5a5a5a5a5a5a5a5,
+                0x510e527fade682d1 ^ 0xa5a5a5a5a5a5a5a5,
+                0x9b05688c2b3e6c1f ^ 0xa5a5a5a5a5a5a5a5,
+                0x1f83d9abfb41bd6b ^ 0xa5a5a5a5a5a5a5a5,
+                0x5be0cd19137e2179 ^ 0xa5a5a5a5a5a5a5a5
+            }
+        );
+        std::vector< uint64_t > h;
+        for (size_t i = 0; i < 8; ++i) {
+            h.push_back(
+                ((uint64_t)digest[i * 8 + 0] << 56)
+                | ((uint64_t)digest[i * 8 + 1] << 48)
+                | ((uint64_t)digest[i * 8 + 2] << 40)
+                | ((uint64_t)digest[i * 8 + 3] << 32)
+                | ((uint64_t)digest[i * 8 + 4] << 24)
+                | ((uint64_t)digest[i * 8 + 5] << 16)
+                | ((uint64_t)digest[i * 8 + 6] << 8)
+                | (uint64_t)digest[i * 8 + 7]
+            );
+        };
+        return h;
+    }
+
+}
+
+namespace Hash {
+
+    std::vector< uint8_t > Sha224(const std::vector< uint8_t >& data) {
+        return Sha224or256(data, true);
+    }
+
+    std::vector< uint8_t > Sha256(const std::vector< uint8_t >& data) {
+        return Sha224or256(data, false);
+    }
+
+    std::vector< uint8_t > Sha384(const std::vector< uint8_t >& data) {
+        return Sha386or512or512t(
+            data,
+            48,
+            {
+                0xcbbb9d5dc1059ed8,
+                0x629a292a367cd507,
+                0x9159015a3070dd17,
+                0x152fecd8f70e5939,
+                0x67332667ffc00b31,
+                0x8eb44a8768581511,
+                0xdb0c2e0d64f98fa7,
+                0x47b5481dbefa4fa4
+            }
+        );
+    }
+
+    std::vector< uint8_t > Sha512t224(const std::vector< uint8_t >& data) {
+        return Sha386or512or512t(
+            data,
+            28,
+            Sha256IV("SHA-512/224")
+        );
+    }
+
+    std::vector< uint8_t > Sha512t256(const std::vector< uint8_t >& data) {
+        return Sha386or512or512t(
+            data,
+            32,
+            Sha256IV("SHA-512/256")
+        );
+    }
+
+    std::vector< uint8_t > Sha512(const std::vector< uint8_t >& data) {
+        return Sha386or512or512t(
+            data,
+            64,
+            {
+                0x6a09e667f3bcc908,
+                0xbb67ae8584caa73b,
+                0x3c6ef372fe94f82b,
+                0xa54ff53a5f1d36f1,
+                0x510e527fade682d1,
+                0x9b05688c2b3e6c1f,
+                0x1f83d9abfb41bd6b,
+                0x5be0cd19137e2179
+            }
+        );
     }
 
 }

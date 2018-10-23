@@ -55,6 +55,26 @@ TEST(Sha2Tests, Sha256TestVectors) {
     }
 }
 
+TEST(Sha2Tests, Sha384TestVectors) {
+    // These test vectors were obtained by calculating SHA-384 digests using
+    // the great and powerful openssl tool.
+    struct TestVector {
+        std::string input;
+        std::string output;
+    };
+    const std::vector< TestVector > testVectors{
+        {"", "38b060a751ac96384cd9327eb1b1e36a21fdb71114be07434c0cc7bf63f6e1da274edebfe76f65fbd51ad2f14898b95b"},
+        {"The quick brown fox jumps over the lazy dog", "ca737f1014a48f4c0b6dd43cb177b0afd9e5169367544c494011e3317dbf9a509cb1e5dc1e85a941bbee3d7f2afbc9b1"},
+        {std::string(1000000, 'a'), "9d0e1809716474cb086e834e310a4a1ced149e9c00f248527972cec5704c2a5b07b8b3dc38ecc4ebae97ddd87f3d8985"},
+    };
+    for (const auto& testVector: testVectors) {
+        EXPECT_EQ(
+            testVector.output,
+            Hash::StringToString< Hash::Sha384 >(testVector.input)
+        );
+    }
+}
+
 TEST(Sha2Tests, Sha512TestVectors) {
     // These test vectors were obtained by calculating SHA-512 digests using
     // the great and powerful openssl tool.
@@ -71,6 +91,56 @@ TEST(Sha2Tests, Sha512TestVectors) {
         EXPECT_EQ(
             testVector.output,
             Hash::StringToString< Hash::Sha512 >(testVector.input)
+        );
+    }
+}
+
+TEST(Sha2Tests, Sha512t224TestVectors) {
+    // Unfortunately, the openssl digest command line tool doesn't (yet)
+    // support SHA-512/224.
+    //
+    // These test vectors were obtained by calculating SHA-512/224 digests
+    // using this online tool:
+    //
+    // * https://emn178.github.io/online-tools/sha512_224.html
+    struct TestVector {
+        std::string input;
+        std::string output;
+    };
+    const std::vector< TestVector > testVectors{
+        {"", "6ed0dd02806fa89e25de060c19d3ac86cabb87d6a0ddd05c333b84f4"},
+        {"The quick brown fox jumps over the lazy dog", "944cd2847fb54558d4775db0485a50003111c8e5daa63fe722c6aa37"},
+        {std::string(1000000, 'a'), "37ab331d76f0d36de422bd0edeb22a28accd487b7a8453ae965dd287"},
+    };
+    for (const auto& testVector: testVectors) {
+        EXPECT_EQ(
+            testVector.output,
+            Hash::StringToString< Hash::Sha512t224 >(testVector.input)
+        );
+    }
+}
+
+TEST(Sha2Tests, Sha512t256TestVectors) {
+    // Unfortunately, the openssl digest command line tool doesn't (yet)
+    // support SHA-512/256.
+    //
+    // These test vectors were obtained by calculating SHA-512/256 digests
+    // using this online tool:
+    //
+    // * https://emn178.github.io/online-tools/sha512_256.html
+    struct TestVector {
+        std::string input;
+        std::string output;
+    };
+    const std::vector< TestVector > testVectors{
+        {"", "c672b8d1ef56ed28ab87c3622c5114069bdd3ad7b8f9737498d0c01ecef0967a"},
+        {"The quick brown fox jumps over the lazy dog", "dd9d67b371519c339ed8dbd25af90e976a1eeefd4ad3d889005e532fc5bef04d"},
+        {std::string(1000000, 'a'), "9a59a052930187a97038cae692f30708aa6491923ef5194394dc68d56c74fb21"},
+    };
+    for (const auto& testVector: testVectors) {
+        EXPECT_EQ(
+            testVector.output,
+            Hash::StringToString< Hash::Sha512t256 >(testVector.input)
         );
     }
 }
