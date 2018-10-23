@@ -14,6 +14,7 @@
 #include <sstream>
 #include <stdint.h>
 #include <string>
+#include <string.h>
 #include <vector>
 
 namespace Hash {
