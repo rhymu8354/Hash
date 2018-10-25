@@ -8,6 +8,7 @@
  */
 
 #include <Hash/Sha2.hpp>
+#include <string>
 #include <string.h>
 #include <stdint.h>
 #include <vector>
