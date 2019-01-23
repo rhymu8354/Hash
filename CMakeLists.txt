@@ -7,6 +7,7 @@ set(This Hash)
 
 set(Headers
     include/Hash/Hmac.hpp
+    include/Hash/Pbkdf2.hpp
     include/Hash/Templates.hpp
     include/Hash/Sha1.hpp
     include/Hash/Sha2.hpp
@@ -14,6 +15,7 @@ set(Headers
 
 set(Sources
     src/Hmac.cpp
+    src/Pbkdf2.cpp
     src/Sha1.cpp
     src/Sha2.cpp
 )
