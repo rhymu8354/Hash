@@ -21,6 +21,12 @@ namespace Hash {
     constexpr size_t SHA1_BLOCK_SIZE = 64;
 
     /**
+     * This is the size, in bits, of the digest produced  by the SHA-1 hash
+     * function.
+     */
+    constexpr size_t SHA1_DIGEST_LENGTH = 160;
+
+    /**
      * This function computes the SHA-1 message digest of the given data.
      *
      * @param[in] data
