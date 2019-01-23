@@ -29,7 +29,7 @@ namespace Hash {
      * @return
      *     The message digest is returned.
      */
-    typedef std::vector< uint8_t >(*HashFunction)(const std::vector< uint8_t >& message);
+    using HashFunction = std::vector< uint8_t >(*)(const std::vector< uint8_t >& message);
 
     /**
      * This function template is used to compute the message digest of the
