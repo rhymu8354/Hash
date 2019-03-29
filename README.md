@@ -2,8 +2,14 @@
 
 This is a library which implements various hash functions, including:
 
+* Message-Digest 5 (MD5) algorithm described in [RFC 1321](https://tools.ietf.org/html/rfc1321).
 * Secure Hash Algorithm 1 (SHA-1) described in [RFC 3174](https://tools.ietf.org/html/rfc3174).
 * Secure Hash Algorithm 2 (SHA-2), which is a set of related hash functions, described in [RFC 4634](https://tools.ietf.org/html/rfc4634).
+
+In addition, the following hash function based algorithms are also included:
+
+* Hash-based Message Authentication Code (HMAC) described in [RFC 2104](https://tools.ietf.org/html/rfc2104).
+* Password-Based Key Derivation Function 2 (PBKDF2) described in [RFC 2989](https://tools.ietf.org/html/rfc2898).
 
 ## Usage
 

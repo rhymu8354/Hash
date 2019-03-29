@@ -9,6 +9,7 @@ option(SHA1_TESTS_INSANELY_LONG_TEST_VECTOR "Include insanely long test vector (
 
 set(Sources
     src/HmacTests.cpp
+    src/Md5Tests.cpp
     src/Pbkdf2Tests.cpp
     src/Sha1Tests.cpp
     src/Sha2Tests.cpp
