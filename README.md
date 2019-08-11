@@ -10,6 +10,8 @@ In addition, the following hash function based algorithms are also included:
 
 * Hash-based Message Authentication Code (HMAC) described in [RFC 2104](https://tools.ietf.org/html/rfc2104).
 * Password-Based Key Derivation Function 2 (PBKDF2) described in [RFC 2989](https://tools.ietf.org/html/rfc2898).
+* HMAC-Based One-Time Password (HOTP) Algorithm described in [RFC 4226](https://tools.ietf.org/html/rfc4226).
+* Time-Based One-Time Password (TOTP) Algorithm described in [RFC 6238](https://tools.ietf.org/html/rfc6238).
 
 ## Usage
 

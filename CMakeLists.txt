@@ -7,19 +7,23 @@ set(This Hash)
 
 set(Headers
     include/Hash/Hmac.hpp
+    include/Hash/Hotp.hpp
     include/Hash/Md5.hpp
     include/Hash/Pbkdf2.hpp
     include/Hash/Templates.hpp
     include/Hash/Sha1.hpp
     include/Hash/Sha2.hpp
+    include/Hash/Totp.hpp
 )
 
 set(Sources
     src/Hmac.cpp
+    src/Hotp.cpp
     src/Md5.cpp
     src/Pbkdf2.cpp
     src/Sha1.cpp
     src/Sha2.cpp
+    src/Totp.cpp
 )
 
 add_library(${This} STATIC ${Sources} ${Headers})
