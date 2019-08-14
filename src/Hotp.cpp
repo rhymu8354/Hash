@@ -11,6 +11,7 @@
 #include <Hash/Hmac.hpp>
 #include <Hash/Hotp.hpp>
 #include <Hash/Templates.hpp>
+#include <math.h>
 #include <stdint.h>
 #include <vector>
 
