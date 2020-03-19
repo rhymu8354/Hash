@@ -212,6 +212,49 @@ TEST(Pbkdf2Tests, Pbkdf2TestVectors) {
                 0xa4, 0x96, 0x38, 0x73, 0xaa, 0x98, 0x13, 0x4a,
             }),
         },
+
+        // Requesting zero iterations is possible but not allowed
+        // in the algorithm.  We will just pretend the caller
+        // requested one iteration, since adding a way to report
+        // illegal input would be overkill.
+        {
+            Hash::MakeHmacBytesToBytesFunction(
+                Hash::Sha256,
+                Hash::SHA256_BLOCK_SIZE
+            ),
+            256,
+            std::string("password", 9),
+            std::vector< uint8_t >({
+                0x73, 0x61, 0x6c, 0x74, // "salt"
+            }),
+            1,
+            32,
+            std::vector< uint8_t >({
+                0x12, 0x0F, 0xB6, 0xCF, 0xFC, 0xF8, 0xB3, 0x2C,
+                0x43, 0xE7, 0x22, 0x52, 0x56, 0xC4, 0xF8, 0x37,
+                0xA8, 0x65, 0x48, 0xC9, 0x2C, 0xCC, 0x35, 0x48,
+                0x08, 0x05, 0x98, 0x7C, 0xB7, 0x0B, 0xE1, 0x7B,
+            }),
+        },
+        {
+            Hash::MakeHmacBytesToBytesFunction(
+                Hash::Sha256,
+                Hash::SHA256_BLOCK_SIZE
+            ),
+            256,
+            std::string("password", 9),
+            std::vector< uint8_t >({
+                0x73, 0x61, 0x6c, 0x74, // "salt"
+            }),
+            0,
+            32,
+            std::vector< uint8_t >({
+                0x12, 0x0F, 0xB6, 0xCF, 0xFC, 0xF8, 0xB3, 0x2C,
+                0x43, 0xE7, 0x22, 0x52, 0x56, 0xC4, 0xF8, 0x37,
+                0xA8, 0x65, 0x48, 0xC9, 0x2C, 0xCC, 0x35, 0x48,
+                0x08, 0x05, 0x98, 0x7C, 0xB7, 0x0B, 0xE1, 0x7B,
+            }),
+        },
     };
     size_t iteration = 0;
     for (const auto& testVector: testVectors) {

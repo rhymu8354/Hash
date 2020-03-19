@@ -55,7 +55,7 @@ namespace {
         saltWithIndex.push_back((uint8_t)i);
         std::vector< uint8_t > dk = prf(password, saltWithIndex);
         std::vector< uint8_t > u(dk);
-        for (size_t j = 0; j < c - 1; ++j) {
+        for (size_t j = 1; j < c; ++j) {
             std::vector< uint8_t > uPrevious(u);
             u = prf(password, uPrevious);
             for (size_t k = 0; k < dk.size(); ++k) {
